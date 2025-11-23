@@ -1,0 +1,18 @@
+.PHONY: build clean run
+
+run: squashfs-root/LiveOS/ext3fs.img
+	sudo chroot rootfs
+
+build: squashfs-root/LiveOS/ext3fs.img
+	mkdir rootfs
+	sudo mount -o loop squashfs-root/LiveOS/ext3fs.img rootfs
+	sudo chroot squashfs-root xbps-install -Sy neofetch
+
+squashfs-root/LiveOS/ext3fs.img: LiveOS/squashfs.img
+	sudo unsquashfs LiveOS/squashfs.img
+
+LiveOS/squashfs.img: void-live-x86_64-*.iso
+	bsdtar -xpf void-live-x86_64-*.iso
+
+void-live-x86_64-20250202-base.iso:
+

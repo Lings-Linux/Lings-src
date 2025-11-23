@@ -1,0 +1,3 @@
+dependencies:
+    arch linux:
+    sudo pacman -Sy squashfs-tools
